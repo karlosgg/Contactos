@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Contactos</string>
+    <string name="action_settings">Nuevo</string>
+    <string name="Nuevo_Contacto">Nuevo Contacto</string>
+    <string name="lbl_nombre">Nombre:</string>
+    <string name="lbl_apellido">Apellido:</string>
+    <string name="lbl_numero">Numero:</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="Modificar_Contacto">Modificar Contacto</string>
+    <string name="btn_modificar">Modificar</string>
+</resources>
