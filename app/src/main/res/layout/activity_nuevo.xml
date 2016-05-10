@@ -25,37 +25,15 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="44dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_nombre"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_apellido"
-        android:layout_below="@+id/txt_nombre"
-        android:layout_marginTop="54dp"
-        android:layout_alignEnd="@+id/txt_nombre"
-        android:layout_alignStart="@+id/txt_nombre" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_numero"
-        android:layout_below="@+id/txt_apellido"
-        android:layout_alignStart="@+id/txt_apellido"
-        android:layout_marginTop="62dp"
-        android:layout_alignEnd="@+id/txt_apellido"
-        android:inputType="phone"
-        android:longClickable="false"
-        android:maxLength="20"
-        android:phoneNumber="true" />
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_toEndOf="@+id/textView3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +41,17 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/lbl_apellido"
         android:id="@+id/textView3"
-        android:layout_alignTop="@+id/txt_apellido"
-        android:layout_toStartOf="@+id/txt_apellido" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="44dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_apellido"
+        android:layout_above="@+id/textView4"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_toEndOf="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,8 +59,56 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/lbl_numero"
         android:id="@+id/textView4"
-        android:layout_alignTop="@+id/txt_numero"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_marginTop="46dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/txt_numero"
+        android:layout_above="@+id/textView11"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/lbl_dui"
+        android:id="@+id/textView11"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_dui"
+        android:layout_above="@+id/textView12"
+        android:layout_alignEnd="@+id/txt_numero"
+        android:layout_toEndOf="@+id/textView4"
+        android:inputType="phone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/lbl_carrera"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_carrera"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_alignEnd="@+id/txt_dui"
+        android:layout_alignStart="@+id/txt_dui" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -92,4 +127,6 @@
         android:id="@+id/button2"
         android:layout_alignTop="@+id/button"
         android:layout_alignParentEnd="true" />
+
+
 </RelativeLayout>

@@ -9,4 +9,6 @@
     <string name="btn_cancelar">Cancelar</string>
     <string name="Modificar_Contacto">Modificar Contacto</string>
     <string name="btn_modificar">Modificar</string>
+    <string name="lbl_dui">DUI:</string>
+    <string name="lbl_carrera">Carrera:</string>
 </resources>
