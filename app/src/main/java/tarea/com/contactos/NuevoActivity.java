@@ -18,23 +18,22 @@ public class NuevoActivity extends AppCompatActivity {
         final EditText nom=(EditText)findViewById(R.id.txt_nombre);
         final EditText ape=(EditText)findViewById(R.id.txt_apellido);
         final EditText num=(EditText)findViewById(R.id.txt_numero);
+        final EditText dui=(EditText)findViewById(R.id.txt_dui);
+        final EditText car=(EditText)findViewById(R.id.txt_carrera);
 
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(nom.getText().length()<1 || nom.getText().length()<1){
-                    Toast.makeText(NuevoActivity.this,
-                            "Los Campos No Pueden Quedar Vacios", Toast.LENGTH_SHORT).show();
-                }else{
                     Intent data = new Intent();
                     data.putExtra("Nombre",nom.getText().toString());
                     data.putExtra("Apellido",ape.getText().toString());
                     data.putExtra("Telefono",num.getText().toString());
+                    data.putExtra("Dui", dui.getText().toString());
+                    data.putExtra("Carrera", car.getText().toString());
                     setResult(RESULT_OK, data);
                     finish();
                 }
-            }
+
         });
 
         cancelar.setOnClickListener(new View.OnClickListener() {

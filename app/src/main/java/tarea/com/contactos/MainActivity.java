@@ -1,6 +1,8 @@
 package tarea.com.contactos;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,11 +20,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Control c=new Control();
-    int request_code = 1;
-    int request_code2 = 2;
-    int indice=0;
-    ArrayAdapter<String> adaptador;
+    private Control c=null;
+    private int request_code = 1;//Nuevo
+    private int request_code2 = 2;//Modificar
+    private int indice=0;
+    private Adaptador_contacto adap=null;
+    private ListView lstContactos=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,28 +33,39 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        adaptador = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, c.getLosContacto());
-        final ListView lstContactos = (ListView)findViewById(R.id.listView);
-
-        lstContactos.setAdapter(adaptador);
+        c=new Control(getApplicationContext());
+        adap = new Adaptador_contacto(this, c);
+        lstContactos = (ListView)findViewById(R.id.listView);
+        lstContactos.setAdapter(adap);
 
         lstContactos.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                    int pos, long id) {
-                        // Elimina y refresca
-                        c.Eliminar(pos);
-                        adaptador.clear();
-                        adaptador.addAll(c.getLosContacto());
-                        adaptador.notifyDataSetChanged();
+                        indice=pos;
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        // Elimina y refresca
+                                        c.Eliminar(indice);
+                                        adap.notifyDataSetChanged();
+                                        Toast.makeText(MainActivity.this,
+                                                "Contacto Eliminado", Toast.LENGTH_SHORT).show();
+                                        break;
 
-                        Toast.makeText(MainActivity.this,
-                                "Contacto Eliminado", Toast.LENGTH_SHORT).show();
-
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        break;
+                                }
+                            }
+                        };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(lstContactos.getContext());
+                        builder.setMessage("¿Desea eliminar este contacto?").setPositiveButton("Si", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
                         return true;
+
                     }
                 }
         );
@@ -67,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                         n.putExtra("nombre",c.getContactos().get(pos).getNombre());
                         n.putExtra("apellido",c.getContactos().get(pos).getApellido());
                         n.putExtra("telefono",c.getContactos().get(pos).getNumero());
+                        n.putExtra("dui",c.getContactos().get(pos).getDUI());
+                        n.putExtra("carrera",c.getContactos().get(pos).getCarrera());
                         startActivityForResult(n, request_code2);
                     }
                 }
@@ -111,33 +127,33 @@ public class MainActivity extends AppCompatActivity {
         if ((requestCode == request_code) && (resultCode == RESULT_OK)){
             boolean existe=false;
             for(int i=0; i<c.getContactos().size();i++){
-                if (c.getContactos().get(i).getNumero().equals(data.getStringExtra("Telefono"))){
-                    existe=true;
-                    indice=i;
+                if (c.getContactos().get(i).getNumero().equals(data.getStringExtra("Telefono"))) {
+                    existe = true;
+                    indice = i;
                 }
             }
-            if(!existe){
-                c.Agregar(data.getStringExtra("Nombre"),data.getStringExtra("Apellido"),data.getStringExtra("Telefono"));
+            if (!existe) {
+                c.Agregar(data.getStringExtra("Nombre"),data.getStringExtra("Apellido"),data.getStringExtra("Telefono"),
+                        data.getStringExtra("Dui"),data.getStringExtra("Carrera"));
                 Toast.makeText(MainActivity.this,
                         "Agregado "+data.getStringExtra("Nombre"), Toast.LENGTH_SHORT).show();
-                adaptador.clear();
-                adaptador.addAll(c.getLosContacto());
-                adaptador.notifyDataSetChanged();
+                adap.notifyDataSetChanged();
             }else{
                 Intent n=new Intent(MainActivity.this, ModificarActivity.class);
                 n.putExtra("nombre",c.getContactos().get(indice).getNombre());
                 n.putExtra("apellido",c.getContactos().get(indice).getApellido());
                 n.putExtra("telefono",c.getContactos().get(indice).getNumero());
+                n.putExtra("dui",c.getContactos().get(indice).getDUI());
+                n.putExtra("carrera",c.getContactos().get(indice).getCarrera());
                 startActivityForResult(n, request_code2);
             }
         }
         if ((requestCode == request_code2) && (resultCode == RESULT_OK)){
-            c.Modificar(indice,data.getStringExtra("Nombre"),data.getStringExtra("Apellido"),data.getStringExtra("Telefono"));
+            c.Modificar(indice,data.getStringExtra("Nombre"),data.getStringExtra("Apellido"),
+                    data.getStringExtra("Telefono"),data.getStringExtra("Dui"),data.getStringExtra("Carrera"));
             Toast.makeText(MainActivity.this,
                     "Modificado "+data.getStringExtra("Nombre"), Toast.LENGTH_SHORT).show();
-            adaptador.clear();
-            adaptador.addAll(c.getLosContacto());
-            adaptador.notifyDataSetChanged();
+            adap.notifyDataSetChanged();
         }
     }
 

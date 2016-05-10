@@ -19,9 +19,13 @@ public class ModificarActivity extends AppCompatActivity {
         final EditText nom=(EditText)findViewById(R.id.txt_mod_nomb);
         final EditText ape=(EditText)findViewById(R.id.txt_mod_ape);
         final EditText num=(EditText)findViewById(R.id.txt_mod_num);
+        final EditText dui=(EditText)findViewById(R.id.txt_mod_dui);
+        final EditText car=(EditText)findViewById(R.id.txt_mod_carrera);
         nom.setText(getIntent().getStringExtra("nombre"));
         ape.setText(getIntent().getStringExtra("apellido"));
         num.setText(getIntent().getStringExtra("telefono"));
+        dui.setText(getIntent().getStringExtra("dui"));
+        car.setText(getIntent().getStringExtra("carrera"));
 
         Log.v("Nomre ", getIntent().getStringExtra("nombre"));
         modificar.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +35,8 @@ public class ModificarActivity extends AppCompatActivity {
                 data.putExtra("Nombre", nom.getText().toString());
                 data.putExtra("Apellido", ape.getText().toString());
                 data.putExtra("Telefono", num.getText().toString());
+                data.putExtra("Dui", dui.getText().toString());
+                data.putExtra("Carrera", car.getText().toString());
                 setResult(RESULT_OK, data);
                 finish();
             }
